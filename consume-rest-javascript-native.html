@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js" 
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+    <link href="fontawesome-free-5.15.2-web/css/all.css" rel="stylesheet"> <!--load all styles -->
+</head>
+<body>
+
+    <i class="fas fa-user"></i> <!-- uses solid style -->
+    <i class="far fa-user"></i> <!-- uses regular style -->
+    <i class="fal fa-user"></i> <!-- uses light style -->
+    <!--brand icon-->
+    <i class="fab fa-github-square"></i> <!-- uses brands style -->
+
+    
+    <p id="id"></p>
+    <p id="first_name"></p>
+    <p id="last_name"></p>
+    <p id="email"></p>
+    <p id="avatar"></p>
+
+    <script>
+
+    fetch('https://reqres.in/api/users?page=2')
+        .then(response => response.json())
+        .then(data => console.log(data.data[0].email));
+
+
+        const URL_TO_FETCH = 'https://reqres.in/api/users?page=2'; 
+        fetch(URL_TO_FETCH, { 
+            method: 'get' // opcional 
+        }).then(function(response) { 
+            // use a resposta 
+            response.json().then(function(data){
+                console.log(data.data);
+                document.getElementById("avatar").innerHTML = data.data[0].avatar;
+                document.getElementById("email").innerHTML = data.data[0].email;
+                document.getElementById("first_name").innerHTML = data.data[0].first_name;
+                document.getElementById("id").innerHTML = data.data[0].id;
+                document.getElementById("last_name").innerHTML = data.data[0].last_name;
+            });
+        }).catch(function(err) { 
+            console.error(err); 
+        });
+
+    
+
+        //Native
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "https://reqres.in/api/unknown/2", true);
+        xhr.onload = function(){
+            console.log(xhr.responseText);
+            console.log(xhr.response);
+
+            var data = JSON.parse(xhr.response);
+            
+            console.log(data.data.id);
+        };
+        xhr.send();
+        
+
+        
+        //JQuery
+        $.ajax({
+            url: "https://reqres.in/api/users",
+            type: "POST",
+            data: {
+                name: "paul rudd",
+                movies: ["I Love You Man", "Role Models"]
+            },
+            success: function(response){
+                console.log(response);
+            }
+        });
+
+        //JQuery
+        $.ajax({
+            url: "https://reqres.in/api/users",
+            type: "GET",
+            success: function(response){
+                console.log("Data: ");
+                console.log(response.data);
+            }
+        });
+
+    </script>
+    
+</body>
+</html>
